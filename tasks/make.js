@@ -1,0 +1,29 @@
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ */
+
+'use strict';
+
+module.exports = function(gulp, config, commandLineArguments) {
+  /*
+   * `gulp make`
+   *  Cleans the output folder and copies the files for the specified
+   *  project into it, together with common files
+   *
+   */
+  gulp.task(
+    'make',
+    gulp.series(function() {
+      const projectFolder = 'src/';
+      return gulp
+        .src(projectFolder + '/**/*', {base: projectFolder})
+        .pipe(gulp.dest(config.outputFolder));
+    }),
+  );
+};

@@ -1,0 +1,9 @@
+{
+	"FB_appId":"780993599340072",
+	"FB_uploadAccessToken": "",
+	"outputFolder": "./build",
+	"archivesFolder": "./archives",
+	"sdkPath":"https://connect.facebook.net/en_US/fbinstant.6.2.js",
+	"mockSdkPath": "js/mock/fbinstant.6.2.mock.js"
+
+}

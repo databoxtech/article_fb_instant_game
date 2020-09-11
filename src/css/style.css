@@ -1,0 +1,51 @@
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body{
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  background-image: url(../img/background.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Helvetica';
+  font-size: 3vmin;
+  padding: 0;
+  margin: 0;
+}
+
+#splash{
+  position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+#info-section, #animal-info{
+  background: rgba(200,200,200,0.8);
+  padding: 15px;
+  display: none;
+}
+
+#playnow{
+  margin: 15px auto;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 4px;
+  background: #439008;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+}

@@ -1,0 +1,158 @@
+<!--
+  Copyright (c) 2017-present, Facebook, Inc.
+  All rights reserved.
+
+  This source code is licensed under the license found in the
+  LICENSE file in the root directory of this source tree.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="full-screen" content="yes"/>
+  <meta name="screen-orientation" content="portrait"/>
+  <meta name="viewport" content="user-scalable=no"/>
+  <link href="css/style.css" rel="stylesheet" type="text/css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- build:js -->
+  <script src="https://www.facebook.com/assets.php/en_US/fbinstant.latest.js"></script>
+  <!-- endbuild -->
+</head>
+
+<body>
+
+  <!-- Start Splash Area -->
+  <div id="splash">
+    <img src="./img/loader.gif" />
+  </div>
+  <!-- End Splash Area -->
+
+  <!-- Start User Info -->
+  <section id="info-section">
+    <p>If you can see this, then FBInstant initialized properly and the game has started!</p>
+
+    <button id="playnow">Click her to see your animal <span class="user-name"></span></button>
+
+    <img id="photo" class="profile_picture"/>
+
+    <table>
+      <tr>
+        <th>Player Name</th>
+        <td id="player-name"></td>
+      </tr>
+      <tr>
+        <th>Player ID</th>
+        <td id="player-id"></td>
+      </tr>
+      <tr>
+        <th>Context Type</th>
+        <td id="context-type"></td>
+      </tr>
+      <tr>
+        <th>Entrypoint Data</th>
+        <td id="entrypointdata"></td>
+      </tr>
+    </table>
+  </section>
+  <!-- End User Info -->
+
+  <!-- Start Animal Info -->
+  <div id="animal-info">
+    <h2><span class="user-name"></span>, you are!</h2>
+    <h1 id="animal-name"></h1>
+    <img id="animal-img" />
+  </div>
+  <!-- End Animal Info -->
+
+  <script type="text/javascript">
+
+    const animals = [
+            {
+                text: 'කූඹියෙක්',
+                image: 'ant.jpg',
+            },
+            {
+                text: 'කුරුල්ලෙක්',
+                image: 'bird.jpg',
+            },
+            {
+                text: 'පූසෙක්',
+                image: 'cat.jpg',
+            },
+            {
+                text: 'බව්වෙක්',
+                image: 'dog.jpg',
+            },
+            {
+                text: 'අලියෙක්',
+                image: 'elephant.jpg',
+            },
+            {
+                text: 'නරියෙක්',
+                image: 'fox.jpg',
+            },
+            {
+                text: 'ගෙම්බෙක්',
+                image: 'frog.jpg',
+            }
+        ]
+
+    window.onload = function() {
+      $('#info-section').hide();
+
+      // When the window loads, start to initialize the SDK
+      FBInstant.initializeAsync().then(function() {
+
+        // We can start to pre-load assets if required
+        // for (let i in assets) {
+        //   // When preloading assets, make sure to report the progress
+        //   FBInstant.setLoadingProgress(i / assets.length * 100);
+        // }
+
+        //If we don't have anything to load, we'll just set the progress to 100%
+        FBInstant.setLoadingProgress(100);
+
+        // Now that assets are loaded, call startGameAsync
+        FBInstant.startGameAsync().then(startGame);
+      });
+    };
+
+    // This is called when the user has tapped Play
+    function startGame() {
+      //hide loader
+      $('#splash').hide();
+
+      // Information from the SDK can now be accessed
+      $('#photo').attr('src', FBInstant.player.getPhoto());
+      $('#player-name').html(FBInstant.player.getName());
+      $('#player-id').html(FBInstant.player.getID());
+      $('#context-type').html(FBInstant.context.getType());
+      try{
+        $('#entrypointdata').html(JSON.stringify(FBInstant.getEntryPointData()));
+      }catch(e){
+        console.log(e);
+      }
+
+      $('.user-name').html(FBInstant.player.getName());
+      $('#playnow').click(showMyAnimal);
+      $('#info-section').show();
+    }
+
+    function showMyAnimal(){
+      $('#playnow').hide();
+      $('#info-section').hide();
+      $('#animal-info').show();
+
+      const an = animals[ Math.floor( animals.length * Math.random() ) ];
+      if(an){
+        $('#animal-name').html(an.text);
+        const url = './img/animals/' + an.image;
+        $('#animal-img').attr('src', url);
+      }
+    }
+  </script>
+
+</body>
+</html>
